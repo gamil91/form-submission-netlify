@@ -1,0 +1,25 @@
+
+
+  /* .form-inputs {
+    margin-bottom: 0.8rem;
+    width: 80%;
+    display: block;
+  } */
+
+  .form-inputs p {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    color: #f00e0e;
+  }
+
+  .form-label {
+    display: inline-block;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+  }
+  
+  /* .form-input {
+    margin: auto;
+    border-radius: 2px;
+    
+  } */
