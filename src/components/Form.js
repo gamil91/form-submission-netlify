@@ -48,9 +48,9 @@ const Form = () => {
             .join("&");
       }
 
-    useEffect((values) => {
+    useEffect(() => {
         if(Object.keys(errors).length === 0 && isSubmitted){
-            debugger
+
             fetch("/", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
