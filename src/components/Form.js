@@ -5,7 +5,7 @@ import './form.css'
 
 const Form = () => {
 
-    const [values, setValues] = useState({
+    const [formData, setFormData] = useState({
         name: "",
         email: "",
         message: ""
@@ -13,31 +13,31 @@ const Form = () => {
 
     const handleChange = e => {
         const { name, value } = e.target
-        setValues({
-            ...values, 
+        setFormData({
+            ...formData, 
             [name]: value
         })
     }
 
     const [errors, setErrors] = useState({})
-    const validate = (values) => {
-        let errors = {}
-        if(!values.name.trim()){
-            errors.name = "Name required"
+    const validate = (formData) => {
+        let formErrors = {}
+        if(!formData.name){
+            formErrors.name = "Name required"
         }
-        if(!values.email){
-            errors.email = "Email required"
+        if(!formData.email){
+            formErrors.email = "Email required"
         } 
-        if(!values.message){
-            errors.message = "Message is required"
+        if(!formData.message){
+            formErrors.message = "Message is required"
         }
-        return errors
+        return formErrors
     }
 
     const [isSubmitted, setIsSubmitted] = useState(false)
 
     const handleSubmit = e => {
-        setErrors(validate(values))
+        setErrors(validate(formData))
         setIsSubmitted(true)
         e.preventDefault();
         
@@ -51,20 +51,20 @@ const Form = () => {
 
     useEffect(() => {
         if(Object.keys(errors).length === 0 && isSubmitted){
-            debugger
+            
             fetch("/", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: encode({ "form-name": "contact-form", ...values })
+                body: encode({ "form-name": "contact-form", ...formData })
             })
             .then(() => alert("Success!"))
             .then(() => setIsSubmitted(false))
-            .then(() => setValues({name: "", email: "",  message: ""}))
+            .then(() => setFormData({name: "", email: "",  message: ""}))
             .catch(error => alert(error))
         }
-    }, [errors, values, isSubmitted])
-    
-
+    }, [errors, formData, isSubmitted])
+     
+    // console.log(errors, formData)
     return (
         <div >
             <h1> Sample Form </h1>
@@ -78,7 +78,7 @@ const Form = () => {
                         name="name" 
                         id="name" 
                         className="form-input" 
-                        value={values.name} 
+                        value={formData.name} 
                         onChange={handleChange}/>
                     {errors.name && <p>{errors.name}</p>}
                 </div>
@@ -91,7 +91,7 @@ const Form = () => {
                         name="email" 
                         id="email" 
                         className="form-input" 
-                        value={values.email} 
+                        value={formData.email} 
                         onChange={handleChange}/>
                     {errors.email && <p>{errors.email}</p>}
                 </div>
@@ -103,7 +103,7 @@ const Form = () => {
                         name="message" 
                         id="message" 
                         className="form-input" 
-                        value={values.message} onChange={handleChange} />
+                        value={formData.message} onChange={handleChange} />
                     {errors.message && <p>{errors.message}</p>}
                 </div>
                 <button type="submit" className="form-input-btn">
