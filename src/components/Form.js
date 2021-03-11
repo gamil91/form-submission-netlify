@@ -40,6 +40,7 @@ const Form = () => {
         setErrors(validate(values))
         setIsSubmitted(true)
         e.preventDefault();
+        
     }
 
     const encode = (data) => {
@@ -48,20 +49,20 @@ const Form = () => {
             .join("&");
       }
 
-    useEffect((values) => {
+    useEffect(() => {
         if(Object.keys(errors).length === 0 && isSubmitted){
-
+            debugger
             fetch("/", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: encode({ "form-name": "contact-form", ...values })
             })
             .then(() => alert("Success!"))
-            .then(() => setValues({name: "", email: "",  message: ""}))
             .then(() => setIsSubmitted(false))
+            .then(() => setValues({name: "", email: "",  message: ""}))
             .catch(error => alert(error))
         }
-    }, [errors, isSubmitted])
+    }, [errors, values, isSubmitted])
     
 
     return (
