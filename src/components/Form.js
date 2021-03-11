@@ -48,19 +48,20 @@ const Form = () => {
             .join("&");
       }
 
-    useEffect(() => {
+    useEffect((values) => {
         if(Object.keys(errors).length === 0 && isSubmitted){
+            debugger
             fetch("/", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: encode({ "form-name": "contact", ...values })
+                body: encode({ "form-name": "contact-form", ...values })
             })
             .then(() => alert("Success!"))
             .then(() => setValues({name: "", email: "",  message: ""}))
             .then(() => setIsSubmitted(false))
             .catch(error => alert(error))
         }
-    }, [errors, values, isSubmitted])
+    }, [errors, isSubmitted])
     
 
     return (
