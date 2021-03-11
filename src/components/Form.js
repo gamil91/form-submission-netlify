@@ -48,7 +48,7 @@ const Form = () => {
             .join("&");
       }
 
-    useEffect(() => {
+    useEffect((values) => {
         if(Object.keys(errors).length === 0 && isSubmitted){
 
             fetch("/", {
